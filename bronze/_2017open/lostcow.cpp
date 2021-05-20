@@ -15,20 +15,28 @@ int main(){
 	while(pos != y){
 		//cout << "pos: " << pos << " " << " destination: " << destination << " distance traveled: " << distance << endl;
 		if(destination > pos){
-			pos += 1;
-			distance++;
+			if(pos < 1000){
+				pos += 1;
+				distance++;
+			}
+			else{
+				factor *=-2;
+				destination = x + factor;
+			}
 		}
 		else if(destination < pos){
-			pos -= 1;
-			distance++;
+			if(pos > 0){
+				pos -= 1;
+				distance++;
+			}
+			else {
+				factor *=-2;
+				destination = x + factor;
+			}
 		}
 		else{
 			factor*= -2;
 			destination = x + factor;
-			if(destination < 0 || destination > 1000){
-				factor *= -2;
-				destination = x + factor;
-			}
 		}
 	}
 	cout << distance << endl;
