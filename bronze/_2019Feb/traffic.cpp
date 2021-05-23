@@ -71,7 +71,7 @@ int main(){
 	int high = 1;
 	int lowF = 1000;
 	int highF = 1;
-	for(int trySpeed = 1;trySpeed <= 1000;trySpeed++){
+	for(int trySpeed = 0;trySpeed <= 1000;trySpeed++){
 		vector<int> speedAttempt = getFinalRange(trySpeed, road);
 		if(speedAttempt[0] != -1){
 			low = min(trySpeed, low);
