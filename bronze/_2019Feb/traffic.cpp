@@ -8,16 +8,22 @@ struct segment{
 };
 
 int speedWorks(int speed, const vector<segment>& road){
-	int factor = 0;
+	int speedLow = speed;
+	int speedHigh = speed;
 	for(auto s: road){
 		if(s.ramp.compare("on") == 0){
-			factor++;
+			speedLow += s.low;
+			speedHigh += s.high;
 		}
 		else if(s.ramp.compare("off") == 0){
-			factor--;
+			speedLow-=s.low;
+			speedHigh-=s.high;
 		}
 		else{
-			if(s.low > speed+factor || speed+factor > s.high){
+			if(!( (s.low <= speedLow && speedLow <= s.high) ||
+				(s.low <= speedHigh && speedHigh <= s.high) ||
+				(speedLow <= s.low && s.low <= speedHigh) ||
+				(speedLow <= s.high && s.high <= speedHigh) )){
 				return 0;
 			}
 		}
