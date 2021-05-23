@@ -7,47 +7,43 @@ struct segment{
 	int low, high;
 };
 
-int speedWorks(int speed, const vector<segment>& road){
+vector<int> getFinalRange(int speed, const vector<segment>& road){
 	int speedLow = speed;
 	int speedHigh = speed;
+	vector<int> retSpeed = {-1, -1};
+	string output = "entering speed is: " + to_string(speed) + "\n";
 	for(auto s: road){
+		output.append("road: ").append(s.ramp).append(" low: ").append(to_string(s.low)).append(" high: ").append(to_string(s.high));
+		output.append("\n");
+		output.append("Speed is: ").append(to_string(speedLow)).append(" ").append(to_string(speedHigh));
+		output.append("\n");
 		if(s.ramp.compare("on") == 0){
 			speedLow += s.low;
 			speedHigh += s.high;
 		}
 		else if(s.ramp.compare("off") == 0){
-			speedLow-=s.low;
-			speedHigh-=s.high;
+			speedLow=max(0, speedLow - s.high);
+			speedHigh=max(0, speedHigh - s.low);
 		}
 		else{
-			if(!( (s.low <= speedLow && speedLow <= s.high) ||
-				(s.low <= speedHigh && speedHigh <= s.high) ||
-				(speedLow <= s.low && s.low <= speedHigh) ||
-				(speedLow <= s.high && s.high <= speedHigh) )){
-				return 0;
+			if(	(speedLow <= s.low && s.low <= speedHigh) ||
+				(speedLow <= s.high && s.high <= speedHigh) ||
+				(s.low <= speedLow && speedLow <= s.high) || 
+				(s.low <= speedHigh && speedHigh <= s.high)){
+				speedLow = max(speedLow, s.low);
+				speedHigh = min(speedHigh, s.high);
+			}
+			else{
+				return retSpeed;
 			}
 		}
+		output.append("after segment: ").append(to_string(speedLow)).append(" ").append(to_string(speedHigh));
+		output.append("\n");
 	}
-	return 1;
-}
-
-int getFinalSpeed(int speed, const vector<segment>& road, int low){
-	int factor = 0;
-	for(auto s: road){
-		if(s.ramp.compare("on") == 0){
-			if(low)
-				factor+=s.low;
-			else
-				factor+=s.high;
-		}
-		else if(s.ramp.compare("off") == 0){
-			if(low)
-				factor-=s.high;
-			else
-				factor-=s.low;
-		}
-	}
-	return speed+factor;
+	retSpeed[0] = speedLow;
+	retSpeed[1] = speedHigh;
+	//cout << output;
+	return retSpeed;
 }
 
 void printRoad(const vector<segment>& road){
@@ -76,14 +72,13 @@ int main(){
 	int lowF = 1000;
 	int highF = 1;
 	for(int trySpeed = 1;trySpeed <= 1000;trySpeed++){
-		if(speedWorks(trySpeed, road)){
-			if(trySpeed < low) low = trySpeed;
-			if(trySpeed > high) high = trySpeed;
-			int finalSpeedLow = getFinalSpeed(trySpeed, road, 1);
-			int finalSpeedHigh = getFinalSpeed(trySpeed, road, 0);
-			if(finalSpeedLow < lowF) lowF = finalSpeedLow;
-			if(finalSpeedHigh > highF) highF = finalSpeedHigh;
-		}	
+		vector<int> speedAttempt = getFinalRange(trySpeed, road);
+		if(speedAttempt[0] != -1){
+			low = min(trySpeed, low);
+			high = max(trySpeed, high);
+			lowF = min(speedAttempt[0], lowF);
+			highF = max(speedAttempt[1], highF);	
+		}
 	}
 	cout << low << " " << high << endl;
 	cout << lowF << " " << highF << endl;
