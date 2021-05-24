@@ -28,7 +28,7 @@ int main(){
 		cowsToGo.push_back(c);
 	}
 
-	int min = 100001;
+	int min = 10000001;
 	for(int i = 0;i<n;i++){
 		int cD = collectiveDistance(i, cowsToGo);
 		//cout << "distance by " << i << ": " << cD << endl;
