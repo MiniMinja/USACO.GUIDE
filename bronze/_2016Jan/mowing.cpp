@@ -33,6 +33,7 @@ int main(){
 	int t = 0;
 	int currX = 0, currY = 0;
 	int smallestDt = 1002;
+	int repeatedCell = 0;
 	for(int i = 0;i<N;i++){
 		char dir;
 		cin >> dir;
@@ -57,6 +58,7 @@ int main(){
 					//cout << "Found Match!" << endl;
 					//cout << "Overlap at " << t + 1 << endl;
 					smallestDt = min(dt, smallestDt);
+					repeatedCell = 1;
 				}
 			}
 			timestamp currTime(t, currX, currY);
@@ -65,5 +67,6 @@ int main(){
 			//currTime.printCoor();
 		}
 	}
-	cout << smallestDt << endl;
+	if(repeatedCell) cout << -1 << endl;
+	else cout << smallestDt << endl;
 }
