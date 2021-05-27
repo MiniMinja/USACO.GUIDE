@@ -67,6 +67,6 @@ int main(){
 			//currTime.printCoor();
 		}
 	}
-	if(repeatedCell) cout << -1 << endl;
+	if(!repeatedCell) cout << -1 << endl;
 	else cout << smallestDt << endl;
 }
