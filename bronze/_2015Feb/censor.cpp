@@ -24,6 +24,10 @@ int main(){
 					break;
 				}
 				sj++;
+				if(sj >= s.length()) {
+					currentMatch = 0;
+					break;
+				}
 			}
 			if(currentMatch && t.length() > 0){
 				for(int j = i;j<sj;j++){
