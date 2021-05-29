@@ -18,16 +18,16 @@ int main(){
 			bool currentMatch = 1;
 			int sj = i;
 			for(int j = 0;j<t.length();j++){
+				if(sj >= s.length()) {
+					currentMatch = 0;
+					break;
+				}
 				while(s[sj] == '\0') sj++;
 				if(s[sj] != t[j]){
 					currentMatch = 0;
 					break;
 				}
 				sj++;
-				if(sj >= s.length()) {
-					currentMatch = 0;
-					break;
-				}
 			}
 			if(currentMatch && t.length() > 0){
 				for(int j = i;j<sj;j++){
