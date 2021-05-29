@@ -11,11 +11,11 @@ int main(){
 	string t;
 	cin >> t;
 
-	int foundT = 0;
+	bool foundT = 0;
 	while(1){
 		for(int i = 0;i<=s.length()-t.length();i++){
 			if(s[i] == '\0') continue;
-			int currentMatch = 1;
+			bool currentMatch = 1;
 			int sj = i;
 			for(int j = 0;j<t.length();j++){
 				while(s[sj] == '\0') sj++;
@@ -25,7 +25,7 @@ int main(){
 				}
 				sj++;
 			}
-			if(currentMatch){
+			if(currentMatch && t.length() > 0){
 				for(int j = i;j<sj;j++){
 					s[j] = '\0';
 				}	
