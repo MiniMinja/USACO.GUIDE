@@ -10,38 +10,23 @@ int main(){
 	cin >> s;
 	string t;
 	cin >> t;
-
-	bool foundT = 0;
-	while(1){
-		for(int i = 0;i<=s.length()-t.length();i++){
-			if(s[i] == '\0') continue;
-			bool currentMatch = 1;
-			int sj = i;
+	
+	string r;
+	for(int i = 0;i<s.length();i++){
+		r.push_back(s[i]);
+		if(r.length() > t.length()){
+			int matches = 1;
 			for(int j = 0;j<t.length();j++){
-				if(sj >= s.length()) {
-					currentMatch = 0;
+				if(r[r.length()-j-1] != t[t.length()-j-1]){
+					matches = 0;
 					break;
 				}
-				while(s[sj] == '\0') sj++;
-				if(s[sj] != t[j]){
-					currentMatch = 0;
-					break;
-				}
-				sj++;
 			}
-			if(currentMatch && t.length() > 0){
-				for(int j = i;j<sj;j++){
-					s[j] = '\0';
-				}	
-				foundT = 1;
+			if(matches){
+				r.erase(r.length()-t.length(), t.length());
 			}
 		}
-		if(!foundT) break;
-		foundT = 0;
 	}
 
-	for(int i = 0;i<s.length();i++){
-		if(s[i] != '\0') cout << s[i];
-	}
-	cout << endl;
+	cout << r << endl;
 }
