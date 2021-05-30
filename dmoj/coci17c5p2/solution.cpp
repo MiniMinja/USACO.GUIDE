@@ -68,7 +68,7 @@ void spiral::move(int N, int M, int** board){
 			stepsTaken = 0;
 		}
 	}
-	else if(dir = 'N'){
+	else if(dir == 'N'){
 		x--;
 		stepsTaken++;
 		if(stepsTaken == needsToMove){
