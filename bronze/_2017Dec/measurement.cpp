@@ -58,7 +58,7 @@ int main(){
 		timeline.insert({day, new timestamp(day, name, change)});
 		names.insert(name);
 	}
-	
+
 	vector<cow*> cows;
 	unordered_map<string, cow*> cowsByName;
 	for(string name:names){
@@ -80,10 +80,12 @@ int main(){
 	for(int i = 1;i<=100;i++){
 		//cout << "day: " << i << endl;
 		if(timeline.find(i) != timeline.end()){
+			//timeline[i]->print();
 			timestamp* tp = timeline[i];
 			cow* curr = cowsByName[tp->name];
 			curr->changeRate(tp->amount);
 		}
+		maxOutput = -1;
 		for(auto c: cows){
 			if(c->productionRate > maxOutput){
 				maxOutput = c->productionRate;
@@ -98,6 +100,10 @@ int main(){
 			
 		if(curr_winners->size() != last_winners->size()){
 			//cout << "-----------------------------------------------------------------CHANGED---------------------------------------------------------" << endl;
+			//for(auto name: *curr_winners){
+			//	cout << name;
+			//}
+			//cout << endl;
 			changes++;
 		}
 		else{
@@ -109,6 +115,10 @@ int main(){
 			}
 			if(!allcurrmatches) {
 				//cout << "-----------------------------------------------------------------CHANGED---------------------------------------------------------" << endl;
+				//for(auto name: *curr_winners){
+				//	cout << name;
+				//}
+				//cout << endl;
 				changes++;
 			}
 		}
