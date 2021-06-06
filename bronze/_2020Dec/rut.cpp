@@ -79,7 +79,7 @@ struct crossPoint{
 };
 
 int main(){
-	freopen("rut.in", "r", stdin);
+	//freopen("rut.in", "r", stdin);
 	int N;
 	cin >> N;
 
