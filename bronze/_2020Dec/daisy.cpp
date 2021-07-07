@@ -13,18 +13,23 @@ int main(){
 	int p = 0;
 	for(int i = 0;i<N-1;i++){
 		for(int j = i+1;j<N;j++){
+			//cout << "Pair: " << i << " " << j << endl;
 			int sum = 0;
 			for(int index = i;index<=j;index++){
 				sum += petals[index];
 			}
-			if(sum % N == 0){
-				int avg = sum/N;
+			//cout << "sum is: " << sum << endl;
+			if(sum % (j - i + 1) == 0){
+				int avg = sum/(j - i + 1);
+				//cout << "avg is: " << avg << endl;
 				for(int index = i;index<=j;index++){
 					if(petals[index] == avg){
 						p++;
+						break;
 					}
 				}
 			}
+			//cout << endl;
 		}
 	}
 	cout << p + N << endl;
