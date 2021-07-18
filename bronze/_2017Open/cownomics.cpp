@@ -89,42 +89,25 @@ int main(){
 		plain.push_back(genome);
 	}
 
-	std::vector<possible*> sallcombos;
-	for(int i = 0;i<M-2;i++){
-		for(int j = i+1;j<M-1;j++){
-			for(int k = j+1;k<M;k++){
-				possible* p = new possible();
-				for(int s = 0;s<spotty.size();s++){
-					triple* t = new triple(spotty[s][i], spotty[s][j], spotty[s][k]);
-					p->alltriples.push_back(t);
-				}
-				sallcombos.push_back(p);
-			}
-		}
-	}
-	//printCombos(sallcombos);
-
-
-	std::vector<possible*> pallcombos;
-	for(int i = 0;i<M-2;i++){
-		for(int j = i+1;j<M-1;j++){
-			for(int k = j+1;k<M;k++){
-				possible* p = new possible();
-				for(int s = 0;s<plain.size();s++){
-					triple* t = new triple(plain[s][i], plain[s][j], plain[s][k]);
-					p->alltriples.push_back(t);
-				}
-				pallcombos.push_back(p);
-			}
-		}
-	}
-	//printCombos(pallcombos);
-
-
 	int count = 0;
-	for(int i = 0;i<sallcombos.size();i++){
-		//std::cout << "comparing: " << i << std::endl;
-		if(confirms(sallcombos[i], pallcombos[i])) count++;
+	for(int i = 0;i<M-2;i++){
+		for(int j = i+1;j<M-1;j++){
+			for(int k = j+1;k<M;k++){
+				bool foundMatch = false;
+				for(int s = 0;s<N;s++){
+					if(foundMatch) break;
+					for(int p = 0;p<N;p++){
+						if(foundMatch) break;
+						triple* st = new triple(spotty[s][i], spotty[s][j], spotty[s][k]);
+						triple* pt = new triple(plain[p][i], plain[p][j], plain[p][k]);
+						if(matches(st, pt)){
+							foundMatch = true;
+						}
+					}
+				}
+				if(!foundMatch) count++;
+			}
+		}
 	}
 	std::cout << count << std::endl;
 }
