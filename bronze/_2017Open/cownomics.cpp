@@ -33,7 +33,7 @@ int main(){
 					if(foundMatch) break;
 					for(int p = 0;p<N;p++){
 						if(foundMatch) break;
-						if( (spotty[s][i] == plain[p][i] && spotty[s][j] == plain[s][j] && spotty[s][k] == plain[s][k]) ){
+						if( (spotty[s][i] == plain[p][i] && spotty[s][j] == plain[p][j] && spotty[s][k] == plain[p][k]) ){
 							foundMatch = true;
 						}
 					}
